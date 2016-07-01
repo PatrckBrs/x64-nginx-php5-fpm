@@ -1,5 +1,5 @@
 # Dockerfile Raspberry Pi Nginx
-FROM ubuntu:latest
+FROM debian:latest
 
 # Update sources && install packages
 RUN DEBIAN_FRONTEND=noninteractive ;\
