@@ -15,7 +15,8 @@ apt-get install --assume-yes \
     php5-common \
     php-xml-parser \
     php-apc \
-    ntp
+    ntp \
+    supervisor
 
 # COPY PHP-FPM Configuration
 COPY ./nginx/conf.d/php5-fpm.conf /etc/nginx/conf.d/php5-fpm.conf
@@ -34,6 +35,8 @@ sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf &
 sed -i -e "s/;env/env/g" /etc/php5/fpm/pool.d/www.conf 
 
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure tzdata && sed -i 's/.debian./.fr./g' /etc/ntp.conf
+
+RUN mkdir -p /var/log/supervisor
 
 # Volume
 VOLUME ["/etc/nginx", "/etc/nginx/conf.d", "/var/www/html"]
